@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type person struct {
 	firstName string
@@ -14,6 +16,14 @@ type birthplace struct {
 	country string
 }
 
+func (p person) print() {
+	fmt.Printf("%+v", p)
+}
+
+func (p *person) changeCity(cityName string) {
+	(*p).birthplace.city = cityName
+}
+
 func main() {
 	player := person{
 		firstName: "Declan",
@@ -25,7 +35,11 @@ func main() {
 		},
 	}
 
-	player.birthplace.city = "London"
+	playerPointer := &player
+	fmt.Println(&playerPointer)
 
-	fmt.Printf("%+v", player)
+	player.print()
+	player.changeCity("London")
+	fmt.Println("  ")
+	player.print()
 }
